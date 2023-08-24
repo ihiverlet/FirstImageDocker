@@ -20,6 +20,7 @@ jobs:
           push: true
           tags: ttl.sh/hellofastapi20230823:24h
 
+  
   deployBranch:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
@@ -27,8 +28,13 @@ jobs:
     steps:
       - name: Print the branch name
         run: echo The branch name is ${GITHUB_REF##*/}.
-      - name: Build and push
-        uses: docker/build-push-action@v4
-        with:
-          push: true
-          tags: ttl.sh/hellofastapi20230823-${{GITHUB_REF##*/}}:24h   
+      - name: Build the image
+        run : docker build -t ttl.sh/hellofastapi20230824-${GITHUB_REF##*/} .
+      - name: Push the image
+        run : docker push ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}:24h
+      
+#      - name: Build and push
+#        uses: docker/build-push-action@v4
+#        with:
+#          push: true
+#          tags: ttl.sh/hellofastapi20230823-${GITHUB_REF##*/}:24h   
