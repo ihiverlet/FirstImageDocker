@@ -38,7 +38,8 @@ jobs:
 
   deployBranch1:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    if: false
+#    if: github.ref != 'refs/heads/main'
     needs: setup
     steps: 
       - name: Get the branch name
@@ -48,3 +49,20 @@ jobs:
         with:
           push: true
           tags: ttl.sh/hellofastapi202308240-${{ env.branch }}:24h   
+
+  deployBranch2:
+    runs-on: ubuntu-latest
+#    if: false
+    if: github.ref != 'refs/heads/main'
+    needs: setup
+    outputs:
+      branch: ${{ steps.branchname.outputs.branch }}
+    steps: 
+      - name: Get the branch name
+        id: branchname
+        run: echo "::set-output name=branch::${GITHUB_REF##*/}"
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ttl.sh/hellofastapi202308240-${{ steps.branchname.outputs.branch }}:24h   
