@@ -31,9 +31,9 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v1
       - name: Build the image
-        run : docker build -t ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}:24h .
+        run : docker build -t ttl.sh/hellofastapi20230824-${GITHUB_REF##*/} .
       - name: Push the image
-        run : docker push ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}:24h
+        run : docker push ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}
       
 #      - name: Build and push
 #        uses: docker/build-push-action@v4
