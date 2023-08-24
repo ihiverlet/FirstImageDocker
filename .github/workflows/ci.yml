@@ -36,15 +36,15 @@ jobs:
       - name: Push the image
         run : docker push ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}:24h
 
-  deployBranch:
+  deployBranch1:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
     needs: setup
     steps: 
-      - name: Print the branch name
-        run: echo The branch name is ${GITHUB_REF##*/}.    
+      - name: Get the branch name
+        run: echo "branch=${GITHUB_REF##*/}" >> $GITHUB_ENV
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ttl.sh/hellofastapi202308240-${GITHUB_REF##*/}:24h   
+          tags: ttl.sh/hellofastapi202308240-${{ env.branch }}:24h   
