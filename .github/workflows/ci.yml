@@ -28,6 +28,8 @@ jobs:
     steps:
       - name: Print the branch name
         run: echo The branch name is ${GITHUB_REF##*/}.
+      - name: Git checkout
+        uses: actions/checkout@v1
       - name: Build the image
         run : docker build -t ttl.sh/hellofastapi20230824-${GITHUB_REF##*/} .
       - name: Push the image
