@@ -31,4 +31,4 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
-          tags: ttl.sh/hellofastapi20230823:${{GITHUB_REF##*/}}:24h      
+          tags: ttl.sh/hellofastapi20230823:${{GITHUB_REF##*/}}     
