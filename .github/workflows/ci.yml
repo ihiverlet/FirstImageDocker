@@ -21,9 +21,10 @@ jobs:
           tags: ttl.sh/hellofastapi20230823:24h
 
   
-  deployBranch:
+  deployBranch0:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    if: false
+#    if: github.ref != 'refs/heads/main'
     needs: setup
     steps:
       - name: Print the branch name
@@ -31,12 +32,19 @@ jobs:
       - name: Git checkout
         uses: actions/checkout@v1
       - name: Build the image
-        run : docker build -t ttl.sh/hellofastapi20230824-${GITHUB_REF##*/} .
+        run : docker build -t ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}:24h .
       - name: Push the image
-        run : docker push ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}
-      
-#      - name: Build and push
-#        uses: docker/build-push-action@v4
-#        with:
-#          push: true
-#          tags: ttl.sh/hellofastapi20230823-${GITHUB_REF##*/}:24h   
+        run : docker push ttl.sh/hellofastapi20230824-${GITHUB_REF##*/}:24h
+
+  deployBranch:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    needs: setup
+    steps: 
+      - name: Print the branch name
+        run: echo The branch name is ${GITHUB_REF##*/}.    
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: ttl.sh/hellofastapi202308240-${GITHUB_REF##*/}:24h   
